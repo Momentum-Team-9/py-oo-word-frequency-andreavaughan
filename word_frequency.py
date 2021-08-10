@@ -15,16 +15,16 @@ class FileReader:
         and return them as one string.
         """
         with open(self.filename) as file:
-            text = file.readline()
-            return text
-
-
-print(dir(FileReader))
+            words = file.readlines()
+            stringed_text = ""
+            return stringed_text.join(words)
 
 
 class WordList:
     def __init__(self, text):
-        pass
+        self.text = text
+        self.extracted_words = ""
+        self.stop_free_words = ""
 
     def extract_words(self):
         """
@@ -32,14 +32,23 @@ class WordList:
         is responsible for lowercasing all words and stripping
         them of punctuation.
         """
-        raise NotImplementedError("WordList.extract_words")
+        lowercase_text = self.text.lower().replace("\n", " ").replace("’s", "")
+        letters_and_space = "abcdefghijklmnopqrstuvwxyz "
+        extracted_words = ""
+        for char in lowercase_text:
+            if char in letters_and_space:
+                extracted_words += char
+        print(type(extracted_words))
+        self.extracted_words = extracted_words
 
     def remove_stop_words(self):
         """
         Removes all stop words from our word list. Expected to
         be run after extract_words.
         """
-        raise NotImplementedError("WordList.remove_stop_words")
+        
+        text_list = self.extracted_words.split(" ")
+        self.stop_free_words = ([word for word in text_list if word not in STOP_WORDS])
 
     def get_freqs(self):
         """
