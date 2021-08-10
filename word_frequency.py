@@ -84,7 +84,7 @@ class FreqPrinter:
         right | 6    ******
         """
         for word, count in sorted(self.freqs.items(), key=lambda seq: seq[1], reverse=True):
-            print(f'{word:2} | {count:2}')
+            print(f"{word:2} {' | ' 'center_alignment' : ^10} {count:2}")
 
 
 if __name__ == "__main__":
