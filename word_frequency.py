@@ -1,3 +1,5 @@
+from collections import Counter
+
 STOP_WORDS = [
     'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has',
     'he', 'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to',
@@ -46,7 +48,6 @@ class WordList:
         Removes all stop words from our word list. Expected to
         be run after extract_words.
         """
-        
         text_list = self.extracted_words.split(" ")
         self.stop_free_words = ([word for word in text_list if word not in STOP_WORDS])
 
@@ -57,12 +58,13 @@ class WordList:
         extract_words and remove_stop_words. The data structure
         could be a dictionary or another type of object.
         """
-        raise NotImplementedError("WordList.get_freqs")
+        print(Counter(self.stop_free_words))
+        return Counter(self.stop_free_words)
 
 
 class FreqPrinter:
     def __init__(self, freqs):
-        pass
+        self.freqs = freqs
 
     def print_freqs(self):
         """
@@ -81,7 +83,8 @@ class FreqPrinter:
        rights | 6    ******
         right | 6    ******
         """
-        raise NotImplementedError("FreqPrinter.print_freqs")
+        for word, count in sorted(self.freqs.items(), key=lambda seq: seq[1], reverse=True):
+            print(f'{word:2} | {count:2}')
 
 
 if __name__ == "__main__":
